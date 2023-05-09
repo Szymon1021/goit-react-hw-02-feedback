@@ -8,51 +8,61 @@ class Feedback extends Component {
         this.state = {
             good: 0,
             neutral: 0,
-            bad: 0 
+            bad: 0
         }
     }
     
     static defaultProps = {
-    step: 1, 
+        step: 1,
+       initialValue: 0,
     };
 
     static propTypes = {
         step: PropTypes.number,
         good: PropTypes.number,
         neutral: PropTypes.number,
-        bad: PropTypes.number 
+        bad: PropTypes.number,
+        initialValue: PropTypes.number,
     }
     
 
-    handleIncrementGood = () => {
-        this.setState((prevState) => {
-            return {
-      good: prevState.good + this.props.step,
-  }
-})
+    handleIncrement = (type) => {
+        switch (type) {
+            case 'good':
+                this.setState((prevState) => {
+                    return {
+                        good: prevState.good + this.props.step,
+                    }
+                })
+                break;
+            case 'neutral':
+                this.setState((prevState) => {
+                    return {
+                        neutral: prevState.neutral + this.props.step,
+                    }
+                })
+                break;
+            case 'bad':
+                this.setState((prevState) => {
+                    return {
+                        bad: prevState.bad + this.props.step,
+                    }
+                })
+                break;
+            default:
+        }
     }
-      handleIncrementNeutral = () => {
-        this.setState((prevState) => {
-            return {
-      neutral: prevState.neutral + this.props.step,
-  }
-})
-    }
-      handleIncrementBad = () => {
-        this.setState((prevState) => {
-            return {
-      bad: prevState.bad + this.props.step, 
-  }
-})
-    }
+
+    
+    
 
     render() {
         return (
             <div>
                 <h2>Please leave feedback</h2>
-                <button onClick={this.handleIncrementGood}>Good</button>
-                <button onClick={this.handleIncrementNeutral}>Neutral</button>
-                <button onClick={this.handleIncrementBad}>Bad</button>
+                <button onClick={()=>this.handleIncrement('good')}>Good</button>
+                <button onClick={()=>this.handleIncrement('neutral')}>Neutral</button>
+                <button onClick={()=>this.handleIncrement('bad')}>Bad</button>
                 <h2>Statistics</h2>
                 <div>
                     <p>Good: {this.state.good }</p>
