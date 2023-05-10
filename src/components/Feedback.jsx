@@ -71,7 +71,7 @@ class Feedback extends Component {
     countPositiveFeedbackPercentage = () => {
         this.setState((prevState) => {
             return {
-                percentage: prevState.good * 100 / prevState.total, 
+                percentage: Math.round(prevState.good * 100 / prevState.total), 
             }
         })
     }
