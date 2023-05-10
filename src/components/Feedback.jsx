@@ -68,7 +68,7 @@ class Feedback extends Component {
     
     countPositiveFeedbackPercentage = () => {
         const percentage = Math.round(this.state.good * 100 / (this.state.good + this.state.neutral + this.state.bad));
-        return percentage
+        return isNaN(percentage) ? 0 : percentage;
     }
 
     render() {
