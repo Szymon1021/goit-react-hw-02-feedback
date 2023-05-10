@@ -8,13 +8,15 @@ class Feedback extends Component {
         this.state = {
             good: 0,
             neutral: 0,
-            bad: 0
+            bad: 0,
+            total: 0,
+            percentage: 0,
         }
     }
     
     static defaultProps = {
         step: 1,
-       initialValue: 0,
+       
     };
 
     static propTypes = {
@@ -22,7 +24,8 @@ class Feedback extends Component {
         good: PropTypes.number,
         neutral: PropTypes.number,
         bad: PropTypes.number,
-        initialValue: PropTypes.number,
+        total: PropTypes.number,
+        percentage: PropTypes.number,
     }
     
 
@@ -51,10 +54,27 @@ class Feedback extends Component {
                 break;
             default:
         }
+        this.countTotalFeedback();
+        this.countPositiveFeedbackPercentage();
     }
 
+        countTotalFeedback = () => {
+            this.setState((prevState) => {
+                return {
+            
+                    total: prevState.good + prevState.neutral + prevState.bad,
+                    
+                    }
+                })
+    }
     
-    
+    countPositiveFeedbackPercentage = () => {
+        this.setState((prevState) => {
+            return {
+                percentage: prevState.good * 100 / prevState.total, 
+            }
+        })
+    }
 
     render() {
         return (
@@ -68,8 +88,8 @@ class Feedback extends Component {
                     <p>Good: {this.state.good }</p>
                     <p>Neutral:{this.state.neutral }</p>
                     <p>Bad:{this.state.bad }</p>
-                    <p>Total:</p>
-                    <p>Positive feedback:</p>
+                    <p>Total:{this.state.total }</p>
+                    <p>Positive feedback:{this.state.percentage + '%' }</p>
                 </div>
             </div>
         )
